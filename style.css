@@ -1,0 +1,262 @@
+*{ /*Prática importante -> seletor universal para tirar coisas padrões do navegador, leve reset no css*/
+  margin:0;
+  padding: 0;
+  box-sizing: border-box; /*Para o cálculo do tamanho da caixa não somar à sua largura e altura o padding, mas incluí-lo no tamanho já definido*/
+}
+  
+body, input, select, textarea {
+  font-family: 'Poppins', sans-serif;
+
+}
+
+body {
+  /*font-family: 'Poppins', sans-serif; Tinha definido no body, mas não pegou no input, vê-se que precisa aplicar a fonte diretamente em quem vai usar*/
+  background: #e5e5e5;
+  
+}
+
+body::before { /*temos um elemento HTML sendo criado aqyui no CSS por essa pseudo-classe*/
+  content: '';
+  width: 100%; /*largura total da página conforme layout*/
+  height: 368px; /*altura conforme layout*/
+
+  position: absolute; /*colocando nessa posição para sobrepor ele à página e me liberar propriedades necessárias.*/
+  top: 0;
+  left: 0;
+  z-index: -1;  /*destravado pelo Position; Invertendo a Sobreposição! Aqui estou mexendo na profundidade (3D), estou alterando o posicionamento de sua profundidade trazendo a 'folha' de baixo pra cima e colocando esta 'folha' (content do :before) de cima para baixo. */ 
+  background:#121214;
+
+}
+
+.page {
+  width: 736px; /*O cabeçalho tem a mesma largura do formulário, medida checada no layout*/
+  margin: 0 auto; /*para alinhar ao meio da página*/
+}
+
+header {
+  width: 319px; /*limitei apenas o header para ficar conforme layout, centralizado e do tam do form com as configurações da div page(que o engloba), porém podendo deixar o header do tamanho limitado no layout, posição lateral.*/
+  
+  margin-top: 74px;
+}
+
+header h1 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 42px;
+  color: white;
+  margin-bottom: 24px;
+}
+
+header p {
+  font-size: 16px;
+  line-height: 26px;
+
+  color: #42D3FF;
+}
+
+form {
+  margin-top: 38px;
+  background: #FAFAFC;
+  border-radius: 8px 8px 0 0; /*borda no formulário canto 1 e 2.*/
+  min-height: 300px; /*colocamos altura mínima para já ir olhando ele na tela*/
+  
+  padding: 64px; /*Nota-se um preenchimento lateral em todo o formulário no layout de 64px*/
+  display: flex;/*Transformando o form para flex para poder usar o gap 48px entre os fieldset que o compõe, da mesma forma que usou-se na div page dentro do fieldset para seus campos*/
+  flex-direction: column;
+  gap:48px
+}
+
+fieldset {
+  border: none; /*retirando bordas confing padrão do navegador*/
+}
+
+.fieldset-wrapper { /*Precisei criar mais esse wrapper para distanciar o legend do fieldset no HTML, para que o legend fosse considerado filho e eu pudesse gerar estas configurações*/
+  display: flex;/*aplicamos a ideia do flex para padronizar os espaços entre os campos, que estão de 24px no layout, com o gap*/
+  flex-direction: column; /*Alinhamos tudo como coluna em seu eixo principal, pois o flex desestabiliza iniciamente colocando um ao lado do outro.*/
+  gap: 24px; /*espaçamento entre os campos no layout*/
+
+}
+
+fieldset legend {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 600; /*600 ou semi-bold*/
+  font-size: 24px;
+  line-height: 34px;
+
+  color: #32264D;
+
+  border-bottom: 1px solid #E6E6F0; /*colocamos a borda inferior (somente ela) à mostra para fazer linha de layout*/
+  width: 100%; /*percebemos que este elemento é block e portanto só colocamos sua largura em 100% para a 'linha' ocupar todo o formulário conforme layout*/
+  padding-bottom: 16px; /*distanciando da linha no tamanho definido no layout*/
+}
+
+.input-wrapper {
+  display: flex; /*Preferimos colocar um elemento abaixo do outro utilizando o display flex.Porém poderia ter transformado o Label em block, ou o input colocado sua width 100%.*/
+  flex-direction: column; /*direcionamos nossos elementos em coluna através dessa propriedade disponível no flex. Como abordado acima*/
+}
+
+.input-wrapper label,
+.checkbox-wrapper label {
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #4E4958;
+
+  margin-bottom: 8px;
+
+}
+.input-wrapper label span {
+  margin-left: 12px; /*afastando o span da label, são duas tags/elementos, portanto têm margem separando-as, posso mexer aqui para fazer o distanciamento previsto no Layout*/
+
+  font-size: 12px;
+  line-height: 20px;  
+
+  color: #a9a7af; /*é sempre necessário ativar o devtools no navegador para avaliar se o contraste está de acordo com a acessibiliddade, isto é se não está muito claro. No layout veio uma cor que não passou no teste, então criamos o hover para disponibilizar o texto em uma cor mais acessível.*/
+}
+
+.input-wrapper label span:hover {
+  color: #6c6a71;
+}
+
+.input-wrapper input,
+.input-wrapper textarea,
+.input-wrapper select {
+  background: #FAFAFC;
+
+  border: 1px solid #E6E6F0;
+  border-radius: 8px;
+
+  height: 56px;
+
+  padding: 0 24px; /*espaçamento para que o texto a ser digitado no imput não comece colado na margem esquerda e nem termine colado na direita*/
+  
+  font-size: 16px;
+  line-height: 26px;
+
+  color: #6c6a71;/*é sempre necessário ativar o devtools no navegador para avaliar se o contraste está de acordo com a acessibiliddade, isto é se não está muito claro. No layout veio uma cor mto clara que não passou no teste, para não modificarmos aqui mesmo o tom. Resolvemos criar o hover p/ disponibilizar o texto em cor mais acessível.*/
+
+}
+
+.input-wrapper textarea {
+  padding: 0;
+  height:168px;
+}
+
+.input-wrapper select {
+  appearance:none; /*Verificar no site can I? se a propriedade já está disponibilizada para ser usada nos navegadores ou não. E verificar o prefixo se necessário.*/
+  -webkit-appearance:none; 
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 10L12 14L16 10' stroke='%239C98A6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: right 24px top 50%; /*Verifica no Layout essa medida. Com o do top sai do top por 50% ficando ao meio, ou coloca center que fica no meio da altura*/
+
+}
+
+.col-3 {
+  display: flex;
+  gap: 20px;
+  
+}
+.col-3 > div:nth-child(1) { /*da classe col-3 quero das filhas diretas a número 1, a primeira.*/
+  width: 100%; /*para ficar maior ocupando o que puder conforme layout, completando pra ocupar todo o espaço disponível do form pra eles nda largura*/
+
+
+} 
+
+.checkbox-wrapper {
+  position:relative; /*relativisando a posição absoluta do checkbox-wrapper input 'verdadeiro'*/
+}
+
+/*Antes aqui havia a classe .checkbox-wrapper {configurando o idsplay flex para o input e o label, e um align-itens 
+  enter. Porém como sumi com o input para fazer um mais estilizado dentro da própria tag LABEL, não fez mais sentido
+  esta configuração que envolvia o real input antigo. Veja em .checkbox wrapper laber toda a configuração da caixinha
+  e sua etiqueta.}*/
+.checkbox-wrapper label {
+  margin: 0; /*retirando a margin-bottom: 8px (está desalinhando o label e a caixinha) que recebeu quando coloquei ele junto com as configurações do input-wrapper label, por serem muito similares e só divergirem nessa margem. */
+  display:flex; /*O que importa agora é o Label, pois estou colocando tudo dentro dele, a caixinha está junto com a etiqueta, não há mais a vizualisação do input*/
+  align-items: center;
+  gap: 16px; /*espaço lateral no label, entre a caixinha e a etiqueta*/
+}
+
+
+/*sumir com ele, através do 'display:none;' gerou um problema de acessibilidade, gerou problema para a navegação
+com o TAB e para o leitor de tela*/
+.checkbox-wrapper input { 
+  position: absolute; /*colocando o input em posição absoluta relativo somente ao próprio checkbox*/
+  top: 0;
+  left: 0;
+
+  width: 24px;
+  height: 24px;
+
+  opacity: 0; /*deixando o input verdadeiro invisível*/
+}
+
+.checkbox-wrapper label::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border: 1px solid #E6E6F0;
+  border-radius: 8px;
+
+}
+
+/*Quando eu tiver um checked em meu input, eu vou pegar o label
+e o seu before e fazer alguma alteração com ele. E funciona pois
+com a conexão do input e do label através do ID, qaundoclico no label aciona o input também.*/
+.checkbox-wrapper input:checked + label::before{
+  background-image: url("data:image/svg+xml,%3Csvg width='26' height='26' viewBox='0 0 26 26' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='1' y='1' width='24' height='24' rx='8' fill='%23FAFAFC' stroke='%23E6E6F0'/%3E%3Cpath d='M10 17.17L5.83 13L4.41 14.41L10 20L22 8L20.59 6.59L10 17.17Z' fill='%2342D3FF'/%3E%3C/svg%3E%0A");
+  /*click botão direito na imagem dsejada -> copy/past -> copy as SVG -> base64*/
+
+}
+
+/*Quando o input desse .checkbox-wrapper estiver em foco (usando aqui a pseudoclasse :focus),
+verifica se está em foco e se tiver pego o 'label::before' e crio o outline. Assim coloco este
+input estilizado em foco quando o TAB estiver nele.*/
+.checkbox-wrapper input:focus + label::before {
+  outline: 2px solid black;
+}
+
+footer {
+  background: #F0F0F4;
+
+  height: 136px;
+
+  display: flex; /*Para posicionar melhor. O flex estica o elemento.*/
+  flex-direction:column;/*Trocando o eixo principal de horizontal para vertical, pois o display estica no eixo secundário, então aqui colocamos como eixo principal o vertical para que ele estique horizontalmente na página*/
+
+  padding: 40px 64px; /*meu botão estava colado nas margens, dei preenchimento no footer para trazer o submit mais pra dentro do footer.*/
+  
+  margin-bottom: 100px;
+
+  border-top:1px solid #D6D6D6; /*usando a borda superior do footer para criar a linha de detalhe do layout*/
+
+  border-radius: 0 0 8px 8px;
+}
+footer .button {
+  height: 56px;
+  background: #04D361;
+  border: 0; /*retirando a borda padrão preta que vem no btn no navegador*/
+  border-radius: 8px;
+
+  font-family: 'Archivo'; /*colocando sua font-family diretamente nele como feito nos demais itens, hábito saudável*/
+
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
+
+  color: #FFFFFF
+}
+
+footer .button:hover { /* Alterando cor de findo quando mouse estiver por cima do botão, detalhe estético*/
+  background: #08a04c;
+}
+
+/*estilo especial para quando tenatrem enviar o form sem campo obrigatório preenchido*/
+input:invalid { /*PSEUDO CLASSE do tipo inválido, serve pra ver o estado do seu elemento */
+  border: 1px solid #FF1010
+}
+
+
+
+/*FIGMA/LAYOUT -> https://www.figma.com/file/m8A6w8qKxWKs7eUg7Gm8eR/Explorer-Stage-03-Projeto-01-(Copy)?node-id=1%3A28*/
